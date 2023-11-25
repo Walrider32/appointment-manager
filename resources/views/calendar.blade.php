@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 </head>
@@ -37,10 +37,19 @@ $(document).ready(function () {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        events: '/calendar/appointments',
-        eventRender: function (event, element, view) {
-            event.allDay = event.allDay === 'true';
-        },
+        events: {
+            url: '/calendar/appointments',
+            type: 'GET',
+            data: {
+                // Additional parameters, if needed
+            },
+            success: function (events) {
+                console.log(events);
+            },
+            error: function (err) {
+                console.log('Error fetching events:', err);
+            }
+        }
     })
 });
 </script>
