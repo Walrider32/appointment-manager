@@ -10,7 +10,6 @@ class AppointmentsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        // 2023-09-08 8-10 AM
         Appointment::create([
             'name' => 'Reserve',
             'date_start' => '2023-09-08',
