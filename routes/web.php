@@ -15,9 +15,11 @@ use App\Http\Controllers\CalendarController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/calendar');
 });
 
 Route::get('/calendar', [CalendarController::class, 'index']);
 
 Route::get('/calendar/appointments', [CalendarController::class, 'getCalendarAppointments']);
+
+Route::post('/calendar/appointment/book', [CalendarController::class, 'bookAppointment']);

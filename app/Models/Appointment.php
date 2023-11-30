@@ -16,7 +16,7 @@ class Appointment extends Model
         'recurring',
         'day_of_week',
         'time_start',
-        'time-end',
+        'time_end',
     ];
 
     protected $casts = [

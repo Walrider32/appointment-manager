@@ -11,49 +11,56 @@ class CalendarController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::all();
-
-        return view('calendar', compact('appointments'));
+        //$appointments = Appointment::all();
+        return view('calendar');
     }
 
     public function getCalendarAppointments(Request $request)
     {
-    // Get the start and end parameters from the AJAX request
-    $start = Carbon::parse($request->input('start'));
-    $end = Carbon::parse($request->input('end'));
+        // Get the start and end parameters from the AJAX request
+        $start = Carbon::parse($request->input('start'));
+        $end = Carbon::parse($request->input('end'));
 
-    // Query the database for appointments that overlap with the requested time range
-    $appointments = Appointment::where(function ($query) use ($start, $end) {
-        $query->whereBetween('date_start', [$start, $end])
-              ->orWhere(function ($q) use ($start, $end) {
-                  $q->where('date_start', '<', $start)
-                    ->where(function ($subQuery) {
-                        $subQuery->where('recurring', '!=', 'none')
-                                 ->orWhereNull('date_end');
-                    });
-              });
-    })->get();
+        // Query the database for appointments that overlap with the requested time range
+        $appointments = Appointment::where(function ($query) use ($start, $end) {
+            $query->whereBetween('date_start', [$start, $end])
+                ->orWhere(function ($q) use ($start, $end) {
+                    $q->where('date_start', '<', $start)
+                        ->where(function ($subQuery) {
+                            $subQuery->where('recurring', '!=', 'none')
+                                    ->orWhereNull('date_end');
+                        });
+                });
+        })->get();
 
-    // Prepare an array to store the formatted events
-    $events = [];
+        // Prepare an array to store the formatted events
+        $events = [];
 
-    // Process each fetched appointment
-    foreach ($appointments as $appointment) {
-        // Handle recurring appointments and get their occurrences
-        $occurrences = $this->getAppointmentOccurrences($appointment, $start, $end);
+        // Process each fetched appointment
+        foreach ($appointments as $appointment) {
+            // Handle recurring appointments and get their occurrences
+            $occurrences = $this->getAppointmentOccurrences($appointment, $start, $end);
         
-        // Format each occurrence and add it to the events array
-        foreach ($occurrences as $occurrence) {
-            $events[] = [
-                'title' => $appointment->name,
-                'start' => $occurrence['start'],
-                'end' => $occurrence['end'],
-            ];
+            // Format each occurrence and add it to the events array
+            foreach ($occurrences as $occurrence) {         
+                $events[] = [
+                    'id' => $appointment->id,
+                    'title' => $appointment->name,
+                    'start' => $occurrence['start'],
+                    'end' => $occurrence['end'],
+                    'date_start' => $occurrence['start'],
+                    'date_end' => $occurrence['end'],
+                    'recurring' => $appointment->recurring,
+                    'day_of_week' => $appointment->day_of_week,
+                    'time_start' => $appointment->time_start,
+                    'time_end' => $appointment->time_end,
+                    'display' => 'background',
+                ];
+            }
         }
-    }
 
-    // Return the formatted events as JSON
-    return response()->json($events);
+        // Return the formatted events as JSON
+        return response()->json($events);
     }
 
     // Calculate recurring occurrences for a given appointment within a specific date range
@@ -127,6 +134,36 @@ class CalendarController extends Controller
 
             default:
                 return $date->addDay(); // Fallback, should not generally reach here
+        }
+    }
+
+    public function bookAppointment(Request $request)
+    {
+        try {
+            $customerName = $request->input('customerName');
+            $start = Carbon::parse($request->input('start'));
+            $end = Carbon::parse($request->input('end'));
+            $dayOfWeek = $request->input('dayOfWeek');
+
+            // Extract time components from start and end
+            $timeStart = $start->format('H:i:s');
+            $timeEnd = $end->format('H:i:s');
+    
+            // Create a new appointment with the same data for the reserved day
+            $newAppointment = Appointment::create([
+                'name' => $customerName,
+                'date_start' => $start->toDateString(),
+                'date_end' => $end->toDateString(),
+                'recurring' => 'none',
+                'day_of_week' => [(int)$dayOfWeek],
+                'time_start' => $timeStart,
+                'time_end' => $timeEnd,
+            ]);
+    
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            Log::error('Error reserving appointment: ' . $e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 }
