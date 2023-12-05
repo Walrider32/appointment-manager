@@ -4,13 +4,13 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
-use App\Models\Appointment;
+use App\Models\Schedule;
 
-class AppointmentsTableSeeder extends Seeder
+class SchedulesTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Appointment::create([
+        Schedule::create([
             'name' => 'Reserve',
             'date_start' => '2023-09-08',
             'date_end' => '2023-09-08',
@@ -20,7 +20,7 @@ class AppointmentsTableSeeder extends Seeder
             'time_end' => '10:00:00'
         ]);
 
-        Appointment::create([
+        Schedule::create([
             'name' => 'Reserve',
             'date_start' => '2023-01-01',
             'date_end' => null,
@@ -30,7 +30,7 @@ class AppointmentsTableSeeder extends Seeder
             'time_end' => '12:00:00'
         ]);
 
-        Appointment::create([
+        Schedule::create([
             'name' => 'Reserve',
             'date_start' => '2023-01-01',
             'date_end' => null,
@@ -40,7 +40,7 @@ class AppointmentsTableSeeder extends Seeder
             'time_end' => '16:00:00'
         ]);
 
-        Appointment::create([
+        Schedule::create([
             'name' => 'Reserve',
             'date_start' => '2023-01-01',
             'date_end' => null,
@@ -50,7 +50,7 @@ class AppointmentsTableSeeder extends Seeder
             'time_end' => '16:00:00'
         ]);
 
-        Appointment::create([
+        Schedule::create([
             'name' => 'Reserve',
             'date_start' => '2023-06-01',
             'date_end' => '2023-11-30',

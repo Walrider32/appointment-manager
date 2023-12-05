@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('date_start');
-            $table->date('date_end')->nullable();
-            $table->enum('recurring', ['none', 'weekly', 'even_weeks', 'odd_weeks']);
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->json('day_of_week');
-            $table->time('time_start');
-            $table->time('time_end');
             $table->timestamps();
         });
     }

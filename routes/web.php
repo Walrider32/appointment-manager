@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::get('/calendar', [CalendarController::class, 'index']);
 
-Route::get('/calendar/appointments', [CalendarController::class, 'getCalendarAppointments']);
+Route::get('/calendar/schedules', [CalendarController::class, 'getCalendarSchedules']);
 
 Route::post('/calendar/appointment/book', [CalendarController::class, 'bookAppointment']);
+
+Route::post('/calendar/appointment/cancel', [CalendarController::class, 'cancelAppointment']);
