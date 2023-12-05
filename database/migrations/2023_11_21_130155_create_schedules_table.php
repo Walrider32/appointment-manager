@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->date('date_start');
             $table->date('date_end')->nullable();
             $table->enum('recurring', ['none', 'weekly', 'even_weeks', 'odd_weeks']);

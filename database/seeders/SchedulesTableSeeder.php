@@ -11,7 +11,6 @@ class SchedulesTableSeeder extends Seeder
     public function run(): void
     {
         Schedule::create([
-            'name' => 'Reserve',
             'date_start' => '2023-09-08',
             'date_end' => '2023-09-08',
             'recurring' => 'none',
@@ -21,7 +20,6 @@ class SchedulesTableSeeder extends Seeder
         ]);
 
         Schedule::create([
-            'name' => 'Reserve',
             'date_start' => '2023-01-01',
             'date_end' => null,
             'recurring' => 'even_weeks',
@@ -31,7 +29,6 @@ class SchedulesTableSeeder extends Seeder
         ]);
 
         Schedule::create([
-            'name' => 'Reserve',
             'date_start' => '2023-01-01',
             'date_end' => null,
             'recurring' => 'odd_weeks',
@@ -41,7 +38,6 @@ class SchedulesTableSeeder extends Seeder
         ]);
 
         Schedule::create([
-            'name' => 'Reserve',
             'date_start' => '2023-01-01',
             'date_end' => null,
             'recurring' => 'weekly',
@@ -51,7 +47,6 @@ class SchedulesTableSeeder extends Seeder
         ]);
 
         Schedule::create([
-            'name' => 'Reserve',
             'date_start' => '2023-06-01',
             'date_end' => '2023-11-30',
             'recurring' => 'weekly',
