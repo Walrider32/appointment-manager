@@ -2,7 +2,7 @@
 
 ## Overview
 
-A simple Laravel project that is using ![Fullcalendar](https://fullcalendar.io) V6. This project is using a MYSQL Database with two tables, one table is used for displaying the schedule times and one is for storing the booked appointments for customers.
+A simple Laravel project that is using [Fullcalendar](https://fullcalendar.io) V6. This project is using a MYSQL Database with two tables, one table is used for displaying the schedule times and one is for storing the booked appointments for customers.
 
 ## Languages/Tools/Technologies
 
@@ -20,13 +20,13 @@ git clone https://github.com/Walrider32/appointment-manager.git
 
 ### Step 2: Get XAMPP
 
-- Download ![Xampp](https://www.apachefriends.org/download.html) Installer.
+- Download [Xampp](https://www.apachefriends.org/download.html) Installer.
 - Run .exe file
 - Start the installation process
 
 ### Step 3: Get Composer
 
-- Download Composer and install from ![here](https://getcomposer.org)
+- Download Composer and install from [here](https://getcomposer.org)
 
 ### Step 4: Get Laravel Library
 
