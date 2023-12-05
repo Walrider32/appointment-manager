@@ -219,6 +219,7 @@ class CalendarController extends Controller
                                 return response()->json(['success' => true]);
                             }
                         }
+                        // Check the next schedule
                         elseif ($bookTimeStart < $occurrenceTimeEnd && $bookTimeEnd > $occurrenceTimeStart) {
                             continue 2;
                         }
